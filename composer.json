@@ -1,0 +1,23 @@
+{
+    "name": "cpeppers/los",
+    "description": "LOS",
+    "authors": [
+        {
+            "name": "cpeppers",
+            "email": "chadpeppers2@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "Los\\Core\\": "core/Los/lib/"
+        }
+    },
+    "require": {
+        "symfony/routing": "^3.2",
+        "doctrine/orm": "^2.5",
+        "symfony/finder": "^3.2",
+        "symfony/http-foundation": "^3.2",
+        "symfony/http-kernel": "^3.2"
+    }
+}

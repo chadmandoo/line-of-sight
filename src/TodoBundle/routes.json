@@ -1,0 +1,7 @@
+{
+  "todo_detail": {
+    "title": "Todo Detail",
+    "path": "/test/{id}",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::index"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "entity": "todo",
+  "namespace": "\\Todo\\Entity\\Todo"
+}
