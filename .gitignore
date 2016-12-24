@@ -3,3 +3,6 @@ vendor*
 
 # PHP Storm
 .idea*
+
+# Composer
+composer.lock
