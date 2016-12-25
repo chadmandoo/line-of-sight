@@ -14,10 +14,16 @@ use Los\Core\LosBootstrap;
 use Los\Core\Http\LosKernel;
 use Los\Core\Http\RequestWrapper;
 
+/**
+ * Bootstrap Request
+ */
 $request = Request::createFromGlobals();
 $requestWrapper = new RequestWrapper($request, new UrlMatcher(LosBootstrap::routeSetup(), new RequestContext()));
 $requestWrapper->matchRequest();
 
-$kernel = new LosKernel(new ControllerResolver(), new ArgumentResolver(), LosBootstrap::database());
+/**
+ * Unleash the Kernel
+ */
+$kernel = new LosKernel(new ControllerResolver(), new ArgumentResolver(), LosBootstrap::containerSetup());
 $response = $kernel->handle($requestWrapper->getRequest());
 $response->send();

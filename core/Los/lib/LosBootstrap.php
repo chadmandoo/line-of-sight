@@ -2,8 +2,7 @@
 
 namespace Los\Core;
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
@@ -14,8 +13,6 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class LosBootstrap
 {
-    const CONFIG_PATH = '../app/config/config.json';
-
     /**
      * Set up Routes
      *
@@ -45,24 +42,15 @@ class LosBootstrap
     }
 
     /**
-     * Bootstrap database.
-     *
-     * @return EntityManager
+     * @return ContainerBuilder
      */
-    public static function database()
+    public static function containerSetup()
     {
-        $db = json_decode(file_get_contents(self::CONFIG_PATH), true);
+        $container = new ContainerBuilder();
+        $container
+            ->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper')
+            ->register('serializer', 'Los\Core\Entity\EntityManagerWrapper');
 
-        $conn = array(
-            'dbname' => $db['database']['dbname'],
-            'user' => $db['database']['user'],
-            'password' => $db['database']['password'],
-            'host' => $db['database']['host'],
-            'driver' => $db['database']['driver'],
-            'port' => $db['database']['port'],
-        );
-        $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/../src"), true);
-
-        return EntityManager::create($conn, $config);
+        return $container;
     }
 }

@@ -3,6 +3,7 @@
 namespace Los\Core\Http;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\TaggedContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
@@ -18,17 +19,19 @@ class LosKernel implements HttpKernelInterface
 {
     private $resolver;
     private $argumentResolver;
+    private $container;
 
     /**
      * LosKernal constructor.
-     * @param ControllerResolverInterface   $resolver
-     * @param ArgumentResolverInterface     $argumentResolver
-     * @param EntityManagerInterface        $entityManager
+     * @param ControllerResolverInterface $resolver
+     * @param ArgumentResolverInterface   $argumentResolver
+     * @param TaggedContainerInterface    $container
      */
-    public function __construct(ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver, EntityManagerInterface $entityManager)
+    public function __construct(ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver, TaggedContainerInterface $container)
     {
         $this->resolver = $resolver;
         $this->argumentResolver = $argumentResolver;
+        $this->container = $container;
     }
 
     /**
@@ -49,6 +52,7 @@ class LosKernel implements HttpKernelInterface
 
             $controllerName = $controller[0];
             $controllerObj = new $controllerName();
+            $controllerObj->setContainer($this->container);
 
             return call_user_func_array(array($controllerObj, $controller[1]), $arguments);
         } catch (\Exception $e) {
