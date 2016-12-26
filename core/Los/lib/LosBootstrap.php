@@ -47,9 +47,8 @@ class LosBootstrap
     public static function containerSetup()
     {
         $container = new ContainerBuilder();
-        $container
-            ->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper')
-            ->register('serializer', 'Los\Core\Entity\EntityManagerWrapper');
+        $container->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper');
+        $container->register('serializer', 'Los\Core\Serializer\SerializerWrapper');
 
         return $container;
     }

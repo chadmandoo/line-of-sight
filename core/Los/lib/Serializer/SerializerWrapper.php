@@ -20,7 +20,7 @@ class SerializerWrapper
      */
     public function __construct()
     {
-        $this->serializer = new Serializer(new ObjectNormalizer(), array(new XmlEncoder(), new JsonEncoder()));
+        $this->serializer = new Serializer(array(new ObjectNormalizer()), array(new XmlEncoder(), new JsonEncoder()));
     }
 
     /**

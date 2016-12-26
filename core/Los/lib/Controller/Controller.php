@@ -25,9 +25,17 @@ class Controller implements ContainerAwareInterface
         return new Response($output);
     }
 
-    protected function serializer($object, $type = 'json')
+    protected function serialize($entities, $type = 'json')
     {
-        $output = $this->getSerializer()->serialize($object, $type);
+        $output = '';
+
+        if (is_array($entities)) {
+            foreach ($entities as $entity) {
+                $output .= $this->serializeSingle($entity, $type);
+            }
+        } else {
+            $output .= $this->serializeSingle($entities, $type);
+        }
 
         return $this->output($output);
     }
@@ -39,6 +47,11 @@ class Controller implements ContainerAwareInterface
 
     protected function getSerializer()
     {
-        return $this->container->get('serializer');
+        return $this->container->get('serializer')->getSerializer();
+    }
+
+    private function serializeSingle($entity, $type)
+    {
+        return $this->getSerializer()->serialize($entity, $type);
     }
 }

@@ -11,12 +11,40 @@ use Los\Core\Entity\Entity;
  */
 class Todo extends Entity
 {
-    /** @Column(type="datetime") **/
-    protected $createdDate;
-    /** @Column(type="datetime") **/
-    protected $updatedDate;
     /** @Column(type="string") **/
     protected $title;
     /** @Column(type="text", nullable=true) * */
     protected $description;
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 }
