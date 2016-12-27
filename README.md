@@ -106,3 +106,11 @@ Creating routes are built using JSON. This will consist of a key, title, path, a
 The above example will create a path with a key of todo_detail (uniquely identifying your path), title for administrative purposes or to identify your front end application page, path, and a controller to use. To pass arguments in the path you must use {identifier} to let LOS know it should expect an argument.
 
 *Note that since we use JSON the backslash must be escaped by another backslash.*
+
+### @TODO
+
+- Entity Factory / Builder
+- Dependency Injection
+- Caching (Routing, Entity Info, Memcache, FileCache)
+- Object Normalizer for __call() magic method
+- Documentation
