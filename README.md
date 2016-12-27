@@ -110,7 +110,8 @@ The above example will create a path with a key of todo_detail (uniquely identif
 ### @TODO
 
 - Entity Factory / Builder
-- Dependency Injection
-- Caching (Routing, Entity Info, Memcache, FileCache)
 - Object Normalizer for __call() magic method
+- Caching (Routing, Entity Info, Memcache, FileCache)
+- JSON Web Tokens (JWT)
+- Dependency Injection
 - Documentation
