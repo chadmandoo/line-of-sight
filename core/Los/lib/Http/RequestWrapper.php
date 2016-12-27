@@ -12,17 +12,14 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 class RequestWrapper
 {
     private $request;
-    private $matcher;
 
     /**
      * RequestWrapper constructor.
-     * @param Request             $request
-     * @param UrlMatcherInterface $matcher
+     * @param Request $request
      */
-    public function __construct(Request $request, UrlMatcherInterface $matcher)
+    public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->matcher = $matcher;
     }
 
     /**
@@ -39,30 +36,5 @@ class RequestWrapper
     public function setRequest($request)
     {
         $this->request = $request;
-    }
-
-    /**
-     * @return UrlMatcherInterface
-     */
-    public function getMatcher()
-    {
-        return $this->matcher;
-    }
-
-    /**
-     * @param UrlMatcherInterface $matcher
-     */
-    public function setMatcher($matcher)
-    {
-        $this->matcher = $matcher;
-    }
-
-    /**
-     * Match request
-     */
-    public function matchRequest()
-    {
-        $match = $this->matcher->matchRequest($this->request);
-        $this->request->attributes->add($match);
     }
 }

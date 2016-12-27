@@ -86,7 +86,17 @@ class Controller implements ContainerAwareInterface
      */
     protected function getEntityInfo()
     {
-        return $this->container->get('entityinfo');
+        return $this->container->get('entity.info');
+    }
+
+    /**
+     * Get Entity Info.
+     *
+     * @return mixed
+     */
+    protected function getRequest()
+    {
+        return $this->container->get('request')->getRequest();
     }
 
     /**

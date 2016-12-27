@@ -12,12 +12,15 @@ use Doctrine\ORM\Tools\Setup;
 class EntityManagerWrapper
 {
     private $entityManager;
+    private $entityInfo;
 
     /**
      * EntityManagerWrapper constructor.
      */
-    public function __construct()
+    public function __construct(EntityInfo $entityInfo)
     {
+        $this->entityInfo = $entityInfo;
+
         // @TODO throw an exception if this doesnt work.
         $db = json_decode(file_get_contents(APP_PATH_CONFIG.'/config.json'), true);
 

@@ -19,6 +19,8 @@ class EntityFactory
      */
     public static function createEntity($type, EntityInfo $entityInfo, $options = array())
     {
+        $entity = null;
+
         if (strstr($type, '\\')) {
             $entity = new $type($options);
         } else {

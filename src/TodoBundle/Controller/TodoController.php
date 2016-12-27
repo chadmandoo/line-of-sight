@@ -5,7 +5,6 @@ namespace TodoBundle\Controller;
 use Los\Core\Controller\Controller;
 use Los\Core\Entity\EntityBuilder;
 use Los\Core\Entity\EntityFactory;
-use TodoBundle\Entity\Todo;
 
 /**
  * Class TodoController
@@ -13,10 +12,13 @@ use TodoBundle\Entity\Todo;
  */
 class TodoController extends Controller
 {
-    public function index()
+    public function test()
     {
-        $todo = EntityFactory::createEntity('todo', $this->getEntityInfo());
+        return $this->output('hi');
+    }
 
+    public function detail($id)
+    {
         return $this->output('hi');
     }
 
