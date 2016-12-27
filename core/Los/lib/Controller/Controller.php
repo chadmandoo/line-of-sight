@@ -15,16 +15,35 @@ class Controller implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
+    /**
+     * Json output.
+     *
+     * @param $output
+     * @return JsonResponse
+     */
     protected function jsonOutput($output)
     {
         return new JsonResponse($output);
     }
 
+    /**
+     * Standard response object.
+     *
+     * @param $output
+     * @return Response
+     */
     protected function output($output)
     {
         return new Response($output);
     }
 
+    /**
+     * Serialize object
+     *
+     * @param $entities
+     * @param string $type
+     * @return Response
+     */
     protected function serialize($entities, $type = 'json')
     {
         $output = '';
@@ -40,16 +59,33 @@ class Controller implements ContainerAwareInterface
         return $this->output($output);
     }
 
+    /**
+     * Get entity manager.
+     *
+     * @return mixed
+     */
     protected function getEntityManager()
     {
         return $this->container->get('entity.manager')->getEntityManager();
     }
 
+    /**
+     * Get serializer.
+     *
+     * @return mixed
+     */
     protected function getSerializer()
     {
         return $this->container->get('serializer')->getSerializer();
     }
 
+    /**
+     * Serialize a single object.
+     *
+     * @param $entity
+     * @param $type
+     * @return mixed
+     */
     private function serializeSingle($entity, $type)
     {
         return $this->getSerializer()->serialize($entity, $type);
