@@ -11,9 +11,6 @@ use Doctrine\ORM\Tools\Setup;
  */
 class EntityManagerWrapper
 {
-    const CONFIG_PATH   = __DIR__.'/../../../../app/config/config.json';
-    const SRC_PATH      = __DIR__."/../../../../src";
-
     private $entityManager;
 
     /**
@@ -21,7 +18,8 @@ class EntityManagerWrapper
      */
     public function __construct()
     {
-        $db = json_decode(file_get_contents(self::CONFIG_PATH), true);
+        // @TODO throw an exception if this doesnt work.
+        $db = json_decode(file_get_contents(APP_PATH_CONFIG.'/config.json'), true);
 
         $conn = array(
             'dbname' => $db['database']['dbname'],
@@ -32,7 +30,7 @@ class EntityManagerWrapper
             'port' => $db['database']['port'],
         );
 
-        $config = Setup::createAnnotationMetadataConfiguration(array(self::SRC_PATH), true);
+        $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH_SRC), true);
 
         $this->entityManager = EntityManager::create($conn, $config);
     }

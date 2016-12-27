@@ -9,6 +9,8 @@ use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Class LosBootstrap
+ *
+ * @deprecated This class is already deprecated and will split the functions into own classes.
  * @package Los\Core
  */
 class LosBootstrap
@@ -24,7 +26,7 @@ class LosBootstrap
 
         $entityLocations = array();
         $finder = new Finder();
-        $finder->files()->name('routes.json')->in('../src');
+        $finder->files()->name('routes.json')->in(APP_PATH_SRC);
         foreach ($finder as $file) {
             $entityLocations[] = $file->getRealPath();
         }
@@ -39,17 +41,5 @@ class LosBootstrap
         }
 
         return $routeCollection;
-    }
-
-    /**
-     * @return ContainerBuilder
-     */
-    public static function containerSetup()
-    {
-        $container = new ContainerBuilder();
-        $container->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper');
-        $container->register('serializer', 'Los\Core\Serializer\SerializerWrapper');
-
-        return $container;
     }
 }

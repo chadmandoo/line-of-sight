@@ -16,6 +16,17 @@ class Entity
     protected $updatedDate;
 
     /**
+     * Entity constructor.
+     * @param array $options
+     */
+    public function __construct($options = array())
+    {
+        if (isset($options)) {
+            $this->setup($options);
+        }
+    }
+
+    /**
      * Magic method call.
      *
      * @param string $name
@@ -101,5 +112,10 @@ class Entity
     public function setUpdatedDate($updatedDate)
     {
         $this->updatedDate = $updatedDate;
+    }
+
+    private function setup($options)
+    {
+        // @TODO generic setup option.
     }
 }

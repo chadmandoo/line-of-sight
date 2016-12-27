@@ -2,8 +2,9 @@
 
 namespace Los\Core\Http;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Los\Core\Entity\EntityInfo;
 use Symfony\Component\DependencyInjection\TaggedContainerInterface;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
@@ -20,18 +21,21 @@ class LosKernel implements HttpKernelInterface
     private $resolver;
     private $argumentResolver;
     private $container;
+    private $finder;
 
     /**
      * LosKernal constructor.
      * @param ControllerResolverInterface $resolver
      * @param ArgumentResolverInterface   $argumentResolver
      * @param TaggedContainerInterface    $container
+     * @param Finder                      $finder
      */
-    public function __construct(ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver, TaggedContainerInterface $container)
+    public function __construct(ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver, TaggedContainerInterface $container, Finder $finder)
     {
         $this->resolver = $resolver;
         $this->argumentResolver = $argumentResolver;
-        $this->container = $container;
+        $this->finder = $finder;
+        $this->containerSetup($container);
     }
 
     /**
@@ -58,5 +62,35 @@ class LosKernel implements HttpKernelInterface
         } catch (\Exception $e) {
             return new Response($e->getMessage());
         }
+    }
+
+    /**
+     * Set up container for controller to use.
+     *
+     * @param $container
+     */
+    private function containerSetup($container)
+    {
+        $this->container = $container;
+        $this->container->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper');
+        $this->container->register('serializer', 'Los\Core\Serializer\SerializerWrapper');
+        $this->container->register('entityinfo', 'Los\Core\Entity\EntityInfo')
+            ->addArgument($this->entityInfoSetup());
+    }
+
+    private function entityInfoSetup()
+    {
+        $entities = array();
+        $entityFinder = new Finder();
+        $entityFinder->files()->name('entity.json')->in(APP_PATH_SRC);
+        foreach ($entityFinder as $file) {
+            $entity = json_decode(file_get_contents($file->getRealPath()), true);
+
+            if ($entity) {
+                $entities += $entity;
+            }
+        }
+
+        return $entities;
     }
 }

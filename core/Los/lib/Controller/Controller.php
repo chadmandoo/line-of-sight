@@ -80,6 +80,16 @@ class Controller implements ContainerAwareInterface
     }
 
     /**
+     * Get Entity Info.
+     *
+     * @return mixed
+     */
+    protected function getEntityInfo()
+    {
+        return $this->container->get('entityinfo');
+    }
+
+    /**
      * Serialize a single object.
      *
      * @param $entity

@@ -1,4 +1,5 @@
 {
-  "entity": "todo",
-  "namespace": "\\Todo\\Entity\\Todo"
+  "todo": {
+    "namespace": "\\TodoBundle\\Entity\\Todo"
+  }
 }
