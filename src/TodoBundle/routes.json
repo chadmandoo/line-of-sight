@@ -9,19 +9,29 @@
     "path": "/todo/create",
     "_controller": "\\TodoBundle\\Controller\\TodoController::create"
   },
-  "todo_read": {
-    "title": "Todo Read",
-    "path": "/todo/{id}",
-    "_controller": "\\TodoBundle\\Controller\\TodoController::read"
-  },
   "todo_update": {
     "title": "Todo Update",
     "path": "/todo/update",
     "_controller": "\\TodoBundle\\Controller\\TodoController::update"
   },
+  "todo_update_id": {
+    "title": "Todo Update ID",
+    "path": "/todo/update/{id}",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::update"
+  },
   "todo_delete": {
+    "title": "Todo Delete",
+    "path": "/todo/delete",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::delete"
+  },
+  "todo_delete_id": {
     "title": "Todo Delete",
     "path": "/todo/delete/{id}",
     "_controller": "\\TodoBundle\\Controller\\TodoController::delete"
+  },
+  "todo_read": {
+    "title": "Todo Read",
+    "path": "/todo/{id}",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::read"
   }
 }

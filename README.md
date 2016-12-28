@@ -18,6 +18,7 @@ Example MYSQL:
     "user":     "los_user",
     "password": "mypassword"
   }
+}
 ```
 ### LOS Coding/Directory Structure
 Coding in LOS is similar to Symfony. You will create Bundles which will live in the **/src**  directory. You will have a Controller and Entity folder which will contain your information to that bundle. It will also have an entity.json and routes.json to let LOS know about your bundles Models/Controllers. Beyond that you can structure your application the way you choose. An example Bundle may look like this:
@@ -50,43 +51,16 @@ class Todo extends Entity
     protected $title;
     /** @Column(type="text", nullable=true) * */
     protected $description;
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
 }
 ```
 We extend the Entity class to get some of the functionality shared across Entities. This is not necessary and you can bypass this completely. The Entity class contains properties such as ID, Created Date, and Updated Date.
 
-*Note: The Entity class utilizes the __call magic method in which eliminates the need to have getters and setters. This works but is not currently supported by Symfony's Serialzer. We are working towards creating an ObjectNormalizer to support this.*
+After the Entity creation you must invoke the Doctrine update command via the console.
+
+```bash
+$ vendor/bin/doctrine orm:schema-tool:update --force
+```
+*Note: LOS utilizes a __call magic method for its getters/setters. This eliminates the need for getters/setters unless you wish to utilize them.*
 
 ### Controller
 The controller class is where we will output our JSON/XML for our front end application.
@@ -96,22 +70,41 @@ Creating routes are built using JSON. This will consist of a key, title, path, a
 
 ```json
 {
-  "todo_detail": {
-    "title": "Todo Detail",
-    "path": "/test/{id}",
-    "_controller": "\\TodoBundle\\Controller\\TodoController::index"
+  "todo_all": {
+    "title": "Todo All",
+    "path": "/todo",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::all"
+  },
+  "todo_create": {
+    "title": "Todo Create",
+    "path": "/todo/create",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::create"
+  },
+  "todo_read": {
+    "title": "Todo Read",
+    "path": "/todo/{id}",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::read"
+  },
+  "todo_update": {
+    "title": "Todo Update",
+    "path": "/todo/update",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::update"
+  },
+  "todo_delete": {
+    "title": "Todo Delete",
+    "path": "/todo/delete/{id}",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::delete"
   }
 }
 ```
-The above example will create a path with a key of todo_detail (uniquely identifying your path), title for administrative purposes or to identify your front end application page, path, and a controller to use. To pass arguments in the path you must use {identifier} to let LOS know it should expect an argument.
+The above example will create a path with a key of todo_read (uniquely identifying your path), title for administrative purposes or to identify your front end application page, path, and a controller to use. To pass arguments in the path you must use {identifier} to let LOS know it should expect an argument.
 
 *Note that since we use JSON the backslash must be escaped by another backslash.*
 
 ### @TODO
-
 - ~~- Entity Factory / Builder~~
-- Object Normalizer for __call() magic method
-- Caching (Routing, Entity Info, Memcache, FileCache)
+- ~~Object Normalizer for __call() magic method~~
 - JSON Web Tokens (JWT)
 - Dependency Injection
+- Caching (Routing, Entity Info, Memcache, FileCache)
 - Documentation

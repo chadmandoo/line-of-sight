@@ -46,12 +46,15 @@ class TodoController extends Controller
         $entity = $this->getEntityRepo('todo')
             ->findById($id);
         
-        return ($entity) ? $this->serialize($entity) : $this->jsonOutput(array('error' => 'No Entity Found'));
+        return ($entity) ? $this->jsonOutput(current($entity)->getAllProperties()) : $this->jsonOutput(array('error' => 'No Entity Found'));
     }
 
-    public function update()
+    public function update($id = null)
     {
+        //var_dump($this->getRequest()->getContent());
+        var_dump(json_decode($this->getRequest()->getContent(), true));
 
+        return $this->output("test");
     }
 
     /**
