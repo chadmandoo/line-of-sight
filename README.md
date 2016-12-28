@@ -55,7 +55,7 @@ class Todo extends Entity
 ```
 We extend the Entity class to get some of the functionality shared across Entities. This is not necessary and you can bypass this completely. The Entity class contains properties such as ID, Created Date, and Updated Date.
 
-After the Entity creation you must invoke the Doctrine update command via the console.
+After the Entity creation you must invoke the Doctrine update command via the console. This will update your database schema with new tables / columns.
 
 ```bash
 $ vendor/bin/doctrine orm:schema-tool:update --force
