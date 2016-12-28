@@ -109,7 +109,7 @@ The above example will create a path with a key of todo_detail (uniquely identif
 
 ### @TODO
 
-~~- Entity Factory / Builder~~
+- ~~- Entity Factory / Builder~~
 - Object Normalizer for __call() magic method
 - Caching (Routing, Entity Info, Memcache, FileCache)
 - JSON Web Tokens (JWT)
