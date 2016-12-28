@@ -3,8 +3,7 @@
 namespace TodoBundle\Controller;
 
 use Los\Core\Controller\Controller;
-use Los\Core\Entity\EntityBuilder;
-use Los\Core\Entity\EntityFactory;
+use Los\Core\Entity\EntityRepository;
 
 /**
  * Class TodoController
@@ -12,25 +11,42 @@ use Los\Core\Entity\EntityFactory;
  */
 class TodoController extends Controller
 {
-    public function test()
+    /**
+     * Returns all ToDo entities.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function all()
     {
-        return $this->output('hi');
+        $entities = $this->getEntityRepo('todo')
+            ->findAll();
+
+        foreach ($entities as $entity) {
+            $output[] = $entity->getAllProperties();
+        }
+
+        return $this->jsonOutput($output);
     }
 
-    public function detail($id)
+
+    public function create()
     {
-        return $this->output('hi');
+
     }
 
-    public function create($id)
+    /**
+     * Read a single todo.
+     *
+     * @param int $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function read($id = null)
     {
-        //return $this->serialize($entities);
-    }
-
-    public function read($id)
-    {
-        $entities = $this->getEntityManager()->getRepository('TodoBundle\Entity\Todo')
+        $entity = $this->getEntityRepo('todo')
             ->findById($id);
+        
+        return ($entity) ? $this->serialize($entity) : $this->jsonOutput(array('error' => 'No Entity Found'));
     }
 
     public function update()
@@ -38,8 +54,25 @@ class TodoController extends Controller
 
     }
 
-    public function delete()
+    /**
+     * Delete an entity.
+     *
+     * @param int $id
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function delete($id = null)
     {
+        $removed = false;
 
+        $entity = $this->getEntityRepo('todo')
+            ->findById($id);
+
+        if ($entity) {
+            EntityRepository::removeEntity($this->getEntityManager(), current($entity));
+            $removed = true;
+        }
+
+        return $this->jsonOutput(array('removed' => $removed));
     }
 }

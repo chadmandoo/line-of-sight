@@ -16,11 +16,11 @@ class EntityManagerWrapper
 
     /**
      * EntityManagerWrapper constructor.
+     * @param EntityInfo $entityInfo
      */
     public function __construct(EntityInfo $entityInfo)
     {
         $this->entityInfo = $entityInfo;
-
         // @TODO throw an exception if this doesnt work.
         $db = json_decode(file_get_contents(APP_PATH_CONFIG.'/config.json'), true);
 
@@ -34,7 +34,6 @@ class EntityManagerWrapper
         );
 
         $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH_SRC), true);
-
         $this->entityManager = EntityManager::create($conn, $config);
     }
 
@@ -52,5 +51,19 @@ class EntityManagerWrapper
     public function setEntityManager($entityManager)
     {
         $this->entityManager = $entityManager;
+    }
+
+    /**
+     * Return entity repository.
+     *
+     * @param string $entityName
+     *
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    public function getEntityRepo($entityName)
+    {
+        $namespace = $this->entityInfo->getEntityInfoByNameSpace($entityName);
+
+        return $this->entityManager->getRepository($namespace);
     }
 }

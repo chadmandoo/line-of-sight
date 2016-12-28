@@ -2,6 +2,7 @@
 
 namespace Los\Core\Http;
 
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\TaggedContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,12 +77,13 @@ class LosKernel implements HttpKernelInterface
      */
     private function containerSetup($request)
     {
-        $this->container->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper');
         $this->container->register('serializer', 'Los\Core\Serializer\SerializerWrapper');
         $this->container->register('entity.info', 'Los\Core\Entity\EntityInfo')
             ->addArgument($this->serviceEntityInfo());
         $this->container->register('request', 'Los\Core\Http\RequestWrapper')
             ->addArgument($request);
+        $this->container->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper')
+            ->addArgument(new Reference('entity.info'));
     }
 
     /**

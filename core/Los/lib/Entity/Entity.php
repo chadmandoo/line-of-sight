@@ -67,51 +67,13 @@ class Entity
     }
 
     /**
-     * @return mixed
+     * Get all properties.
+     *
+     * @return array
      */
-    public function getId()
+    public function getAllProperties()
     {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedDate()
-    {
-        return $this->createdDate;
-    }
-
-    /**
-     * @param mixed $createdDate
-     */
-    public function setCreatedDate($createdDate)
-    {
-        $this->createdDate = $createdDate;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUpdatedDate()
-    {
-        return $this->updatedDate;
-    }
-
-    /**
-     * @param mixed $updatedDate
-     */
-    public function setUpdatedDate($updatedDate)
-    {
-        $this->updatedDate = $updatedDate;
+        return get_object_vars($this);
     }
 
     private function setup($options)

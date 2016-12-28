@@ -1,12 +1,27 @@
 {
-  "todo_test": {
-    "title": "Todo Detail",
-    "path": "/test",
-    "_controller": "\\TodoBundle\\Controller\\TodoController::test"
+  "todo_all": {
+    "title": "Todo All",
+    "path": "/todo",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::all"
   },
-  "todo_detail": {
-    "title": "Todo Detail",
-    "path": "/test/{id}",
-    "_controller": "\\TodoBundle\\Controller\\TodoController::detail"
+  "todo_create": {
+    "title": "Todo Create",
+    "path": "/todo/create",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::create"
+  },
+  "todo_read": {
+    "title": "Todo Read",
+    "path": "/todo/{id}",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::read"
+  },
+  "todo_update": {
+    "title": "Todo Update",
+    "path": "/todo/update",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::update"
+  },
+  "todo_delete": {
+    "title": "Todo Delete",
+    "path": "/todo/delete/{id}",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::delete"
   }
 }

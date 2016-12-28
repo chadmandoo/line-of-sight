@@ -70,6 +70,17 @@ class Controller implements ContainerAwareInterface
     }
 
     /**
+     * Get entity repository.
+     *
+     * @param $entityName
+     * @return mixed
+     */
+    protected function getEntityRepo($entityName)
+    {
+        return $this->container->get('entity.manager')->getEntityRepo($entityName);
+    }
+
+    /**
      * Get serializer.
      *
      * @return mixed
