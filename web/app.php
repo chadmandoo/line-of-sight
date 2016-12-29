@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  */
@@ -13,16 +14,9 @@ define("APP_PATH_CONFIG", dirname(__DIR__).'/app/config');
  */
 require APP_PATH.'/app/autoload.php';
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use Symfony\Component\Finder\Finder;
-use Los\Core\Http\LosKernel;
-
 /**
  * Unleash the Kernel
  */
-$kernel = new LosKernel(new ControllerResolver(), new ArgumentResolver(), new ContainerBuilder(), new Finder());
-$response = $kernel->handle(Request::createFromGlobals());
+$kernel = new \Los\Core\Http\LosKernel(new \Symfony\Component\HttpKernel\Controller\ControllerResolver(), new \Symfony\Component\HttpKernel\Controller\ArgumentResolver(), new \Symfony\Component\DependencyInjection\ContainerBuilder(), new \Symfony\Component\Finder\Finder());
+$response = $kernel->handle(\Symfony\Component\HttpFoundation\Request::createFromGlobals());
 $response->send();
