@@ -18,7 +18,7 @@ class EntityManagerWrapper
      * EntityManagerWrapper constructor.
      * @param EntityInfo $entityInfo
      */
-    public function __construct(EntityInfo $entityInfo)
+    public function __construct(EntityInfo $entityInfo = null)
     {
         $this->entityInfo = $entityInfo;
         // @TODO throw an exception if this doesnt work.
