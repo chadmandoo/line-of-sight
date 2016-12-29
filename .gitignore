@@ -6,3 +6,11 @@ vendor*
 
 # Composer
 composer.lock
+
+# Temporarily ignoring web folder for testing except app.php
+web*
+!/web/app.php
+
+# Temporarily ignoring src for testing except TodoBundle
+src*
+!/src/TodoBundle*
