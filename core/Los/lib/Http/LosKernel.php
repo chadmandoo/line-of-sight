@@ -5,7 +5,7 @@ namespace Los\Core\Http;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\TaggedContainerInterface;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,7 +66,7 @@ class LosKernel implements HttpKernelInterface
 
             return call_user_func_array(array($controllerObj, $controller[1]), $arguments);
         } catch (\Exception $e) {
-            return new Response($e->getMessage());
+            return new JsonResponse($e->getMessage());
         }
     }
 
@@ -126,7 +126,7 @@ class LosKernel implements HttpKernelInterface
         foreach ($entityLocations as $location) {
             $routes = json_decode(file_get_contents($location), true);
             foreach ($routes as $key => $route) {
-                $routeAdd = new Route($route['path'], array('_controller' => $route['_controller']));
+                $routeAdd = new Route($route['path'], array('_controller' => $route['_controller'], 'smest' => 'test'));
                 $routeCollection->add($key, $routeAdd);
             }
         }

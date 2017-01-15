@@ -16,6 +16,17 @@ class Controller implements ContainerAwareInterface
     use ContainerAwareTrait;
 
     /**
+     * Kill the controller request.
+     *
+     * @param $message
+     * @throws \Exception
+     */
+    protected function killRequest($message)
+    {
+        throw new \Exception($message);
+    }
+
+    /**
      * Json output.
      *
      * @param $output
@@ -38,28 +49,6 @@ class Controller implements ContainerAwareInterface
     }
 
     /**
-     * Serialize object
-     *
-     * @param $entities
-     * @param string $type
-     * @return Response
-     */
-    protected function serialize($entities, $type = 'json')
-    {
-        $output = '';
-
-        if (is_array($entities)) {
-            foreach ($entities as $entity) {
-                $output .= $this->serializeSingle($entity, $type);
-            }
-        } else {
-            $output .= $this->serializeSingle($entities, $type);
-        }
-
-        return $this->output($output);
-    }
-
-    /**
      * Get entity manager.
      *
      * @return mixed
@@ -78,16 +67,6 @@ class Controller implements ContainerAwareInterface
     protected function getEntityRepo($entityName)
     {
         return $this->container->get('entity.manager')->getEntityRepo($entityName);
-    }
-
-    /**
-     * Get serializer.
-     *
-     * @return mixed
-     */
-    protected function getSerializer()
-    {
-        return $this->container->get('serializer')->getSerializer();
     }
 
     /**
@@ -117,18 +96,48 @@ class Controller implements ContainerAwareInterface
      */
     protected function getRequestContent()
     {
-        return $this->container->get('request')->getRequestedContent();
+        return $this->container->get('request')->getRequestContent();
+    }
+
+    /**
+     * Get serializer.
+     *
+     * @return mixed
+     */
+    protected function getSerializer()
+    {
+        return $this->container->get('serializer')->getSerializer();
+    }
+
+    /**
+     * Serialize object
+     *
+     * @param $entities
+     * @return Response
+     */
+    protected function serialize($entities)
+    {
+        $output = '';
+
+        if (is_array($entities)) {
+            foreach ($entities as $entity) {
+                $output .= $this->serializeSingle($entity);
+            }
+        } else {
+            $output .= $this->serializeSingle($entities);
+        }
+
+        return $this->output($output);
     }
 
     /**
      * Serialize a single object.
      *
      * @param $entity
-     * @param $type
      * @return mixed
      */
-    private function serializeSingle($entity, $type)
+    private function serializeSingle($entity)
     {
-        return $this->getSerializer()->serialize($entity, $type);
+        return $this->getSerializer()->serialize($entity, 'json');
     }
 }

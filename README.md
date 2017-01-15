@@ -104,7 +104,5 @@ The above example will create a path with a key of todo_read (uniquely identifyi
 ### @TODO
 - ~~- Entity Factory / Builder~~
 - ~~Object Normalizer for __call() magic method~~
-- JSON Web Tokens (JWT)
-- Dependency Injection
 - Caching (Routing, Entity Info, Memcache, FileCache)
 - Documentation
