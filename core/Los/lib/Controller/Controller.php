@@ -108,36 +108,4 @@ class Controller implements ContainerAwareInterface
     {
         return $this->container->get('serializer')->getSerializer();
     }
-
-    /**
-     * Serialize object
-     *
-     * @param $entities
-     * @return Response
-     */
-    protected function serialize($entities)
-    {
-        $output = '';
-
-        if (is_array($entities)) {
-            foreach ($entities as $entity) {
-                $output .= $this->serializeSingle($entity);
-            }
-        } else {
-            $output .= $this->serializeSingle($entities);
-        }
-
-        return $this->output($output);
-    }
-
-    /**
-     * Serialize a single object.
-     *
-     * @param $entity
-     * @return mixed
-     */
-    private function serializeSingle($entity)
-    {
-        return $this->getSerializer()->serialize($entity, 'json');
-    }
 }

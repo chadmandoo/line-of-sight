@@ -67,6 +67,7 @@ class RequestWrapper
     {
         $this->requestContent = array(
             'method' => $this->request->getMethod(),
+            'headers' => $this->request->headers->all(),
             'content_type' => $this->request->headers->get('content-type'),
             'content' => array(),
         );
