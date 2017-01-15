@@ -4,7 +4,6 @@ namespace Los\Core\Serializer;
 
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 /**
@@ -20,7 +19,7 @@ class SerializerWrapper
      */
     public function __construct()
     {
-        $this->serializer = new Serializer(array(new ObjectNormalizer()), array(new XmlEncoder(), new JsonEncoder()));
+        $this->serializer = new Serializer(array(new ObjectNormalizer()), array(new JsonEncoder()));
     }
 
     /**

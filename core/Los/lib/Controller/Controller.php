@@ -111,6 +111,16 @@ class Controller implements ContainerAwareInterface
     }
 
     /**
+     * Get the API request content.
+     *
+     * @return mixed
+     */
+    protected function getRequestContent()
+    {
+        return $this->container->get('request')->getRequestedContent();
+    }
+
+    /**
      * Serialize a single object.
      *
      * @param $entity
