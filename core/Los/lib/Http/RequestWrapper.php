@@ -10,7 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RequestWrapper
 {
+    /**
+     * Request object
+     *
+     * @var Request
+     */
     private $request;
+
+    /**
+     * Requested Content
+     *
+     * @var
+     */
+    private $requestContent;
 
     /**
      * RequestWrapper constructor.
@@ -19,6 +31,7 @@ class RequestWrapper
     public function __construct(Request $request)
     {
         $this->request = $request;
+        $this->setRequestContent();
     }
 
     /**
@@ -38,26 +51,32 @@ class RequestWrapper
     }
 
     /**
-     * Get the requested content.
+     * Get requested content.
      *
      * @return array
      */
     public function getRequestContent()
     {
-        $content = array(
+        return $this->requestContent;
+    }
+
+    /**
+     * Set the requested content.
+     */
+    public function setRequestContent()
+    {
+        $this->requestContent = array(
             'method' => $this->request->getMethod(),
             'content_type' => $this->request->headers->get('content-type'),
             'content' => array(),
         );
 
-        if (strstr($content['content_type'], 'application/x-www-form-urlencoded')) {
-            $content['content'] += $this->request->request->all();
-        } elseif (strstr($content['content_type'], 'application/json')) {
-            $content['content'] += json_decode($this->getRequest()->getContent(), true);
+        if (strstr($this->requestContent['content_type'], 'application/x-www-form-urlencoded')) {
+            $this->requestContent['content'] += $this->request->request->all();
+        } elseif (strstr($this->requestContent['content_type'], 'application/json')) {
+            $this->requestContent['content'] += json_decode($this->getRequest()->getContent(), true);
         } else {
-            $content['content'] += $this->request->query->all();
+            $this->requestContent['content'] += $this->request->query->all();
         }
-
-        return $content;
     }
 }
