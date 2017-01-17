@@ -9,7 +9,7 @@ define("APP_PATH_CACHE", dirname(__DIR__).'/app/cache');
 /**
  * Bootstrap application.
  */
-require APP_PATH.'/app/autoload.php';
+require 'app/autoload.php';
 
 $managerWrapper = new \Los\Core\Entity\EntityManagerWrapper(new \Los\Core\Config\LosConfig());
 
