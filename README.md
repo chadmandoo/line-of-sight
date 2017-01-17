@@ -104,5 +104,6 @@ The above example will create a path with a key of todo_read (uniquely identifyi
 ### Feature Extras
 - ~~- Entity Factory / Builder~~
 - ~~Object Normalizer for __call() magic method~~
-- File Caching (Routing, Entity Info, FileCache)
+- ~~File Caching (Routing, Entity Info, FileCache)~~
+- Console Commands
 - Documentation

@@ -16,13 +16,14 @@ class EntityManagerWrapper
 
     /**
      * EntityManagerWrapper constructor.
-     * @param array      $dbConnect
+     * @param array      $config
      * @param EntityInfo $entityInfo
      */
     public function __construct($config, EntityInfo $entityInfo = null)
     {
         $this->entityInfo = $entityInfo;
         $dbConnect = $config->getConfig();
+
         $conn = array(
             'dbname' => $dbConnect['database']['dbname'],
             'user' => $dbConnect['database']['user'],

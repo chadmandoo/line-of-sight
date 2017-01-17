@@ -29,6 +29,11 @@
     "path": "/todo/delete/{id}",
     "_controller": "\\TodoBundle\\Controller\\TodoController::delete"
   },
+  "todo_generate": {
+    "title": "Todo Generate",
+    "path": "/todo/generate",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::generate"
+  },
   "todo_read": {
     "title": "Todo Read",
     "path": "/todo/{id}",

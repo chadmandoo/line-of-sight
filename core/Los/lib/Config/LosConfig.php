@@ -40,7 +40,7 @@ class LosConfig
         $this->config = json_decode(file_get_contents(APP_PATH_CONFIG.'/config.json'), true);
 
         if ($this->config['cache']) {
-            $configCache = new ConfigCache(APP_PATH_CACHE.'/file.cache', true);
+            $configCache = new ConfigCache(APP_PATH_CACHE.'/los.cache', true);
 
             if (!$configCache->isFresh()) {
                 $this->setup();
@@ -51,7 +51,7 @@ class LosConfig
                     $configCache->write(json_encode($resources));
                 }
             } else {
-                $cache = json_decode(file_get_contents(APP_PATH_CACHE.'/file.cache'), true);
+                $cache = json_decode(file_get_contents(APP_PATH_CACHE.'/los.cache'), true);
 
                 if (isset($cache['routes'])) {
                     $this->routes = $cache['routes'];
@@ -125,24 +125,19 @@ class LosConfig
      */
     private function generateRoutes()
     {
-        $routes = array();
-        $controllerRoutes = array();
-        $finder = new Finder();
-        $finder->files()->name('routes.json')->in(APP_PATH_SRC);
+        $routesCollection = array();
+        $routesFinder = new Finder();
+        $routesFinder->files()->name('routes.json')->in(APP_PATH_SRC);
 
-        foreach ($finder as $file) {
-            $controllerRoutes[] = $file->getRealPath();
-        }
+        foreach ($routesFinder as $route) {
+            $routes = json_decode(file_get_contents($route->getRealPath()), true);
 
-        foreach ($controllerRoutes as $location) {
-            $routes = json_decode(file_get_contents($location), true);
-
-            foreach ($routes as $route) {
-                $routes[] = $route;
+            foreach ($routes as $r) {
+                $routesCollection[] = $r;
             }
         }
 
-        return $routes;
+        return $routesCollection;
     }
 
     private function generateEntityInfo()

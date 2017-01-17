@@ -5,7 +5,6 @@ namespace Los\Core\Http;
 use Los\Core\Config\LosConfig;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\TaggedContainerInterface;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
@@ -17,7 +16,7 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * Class LosKernal
+ * Class LosKernel
  *
  * @package Symfony\Component\HttpKernel
  */
@@ -27,23 +26,20 @@ class LosKernel implements HttpKernelInterface
     private $argumentResolver;
     private $container;
     private $config;
-    private $finder;
 
     /**
-     * LosKernal constructor.
+     * LosKernel constructor.
      * @param ControllerResolverInterface $resolver
      * @param ArgumentResolverInterface   $argumentResolver
      * @param TaggedContainerInterface    $container
      * @param LosConfig                   $config
-     * @param Finder                      $finder
      */
-    public function __construct(ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver, TaggedContainerInterface $container, LosConfig $config, Finder $finder)
+    public function __construct(ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver, TaggedContainerInterface $container, LosConfig $config)
     {
         $this->resolver = $resolver;
         $this->argumentResolver = $argumentResolver;
         $this->container = $container;
         $this->config = $config;
-        $this->finder = $finder;
     }
 
     /**
