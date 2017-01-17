@@ -1,10 +1,10 @@
 <?php
 
-define("APP_PATH", dirname(__DIR__));
-define("APP_PATH_SRC", dirname(__DIR__).'/src');
-define("APP_PATH_APP", dirname(__DIR__).'/app');
-define("APP_PATH_CONFIG", dirname(__DIR__).'/app/config');
-define("APP_PATH_CACHE", dirname(__DIR__).'/app/cache');
+define("APP_PATH", __DIR__);
+define("APP_PATH_SRC", __DIR__.'/src');
+define("APP_PATH_APP", __DIR__.'/app');
+define("APP_PATH_CONFIG", __DIR__.'/app/config');
+define("APP_PATH_CACHE", __DIR__.'/app/cache');
 
 /**
  * Bootstrap application.
