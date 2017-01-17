@@ -4,6 +4,7 @@ namespace Los\Core\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use Los\Core\Config\LosConfig;
 
 /**
  * Class EntityManagerWrapper
@@ -16,7 +17,7 @@ class EntityManagerWrapper
 
     /**
      * EntityManagerWrapper constructor.
-     * @param array      $config
+     * @param LosConfig  $config
      * @param EntityInfo $entityInfo
      */
     public function __construct($config, EntityInfo $entityInfo = null)
