@@ -44,7 +44,7 @@ class TodoController extends Controller
         $cacheDriver->setMemcache($memcache);
 
         if ($cacheDriver->contains('todo')) {
-            $entities = $cacheDriver->fetch('my_array');
+            $entities = $cacheDriver->fetch('todo');
 
             foreach ($entities as $entity) {
                 $output[] = $entity->getAllProperties();
