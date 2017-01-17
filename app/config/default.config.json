@@ -6,5 +6,6 @@
     "dbname":   "",
     "user":     "",
     "password": ""
-  }
+  },
+  "cache": false
 }

@@ -2,6 +2,7 @@
 
 namespace Los\Core\Http;
 
+use Los\Core\Config\LosConfig;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\TaggedContainerInterface;
 use Symfony\Component\Finder\Finder;
@@ -25,6 +26,7 @@ class LosKernel implements HttpKernelInterface
     private $resolver;
     private $argumentResolver;
     private $container;
+    private $config;
     private $finder;
 
     /**
@@ -32,14 +34,16 @@ class LosKernel implements HttpKernelInterface
      * @param ControllerResolverInterface $resolver
      * @param ArgumentResolverInterface   $argumentResolver
      * @param TaggedContainerInterface    $container
+     * @param LosConfig                   $config
      * @param Finder                      $finder
      */
-    public function __construct(ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver, TaggedContainerInterface $container, Finder $finder)
+    public function __construct(ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver, TaggedContainerInterface $container, LosConfig $config, Finder $finder)
     {
         $this->resolver = $resolver;
         $this->argumentResolver = $argumentResolver;
-        $this->finder = $finder;
         $this->container = $container;
+        $this->config = $config;
+        $this->finder = $finder;
     }
 
     /**
@@ -79,32 +83,12 @@ class LosKernel implements HttpKernelInterface
     {
         $this->container->register('serializer', 'Los\Core\Serializer\SerializerWrapper');
         $this->container->register('entity.info', 'Los\Core\Entity\EntityInfo')
-            ->addArgument($this->serviceEntityInfo());
+            ->addArgument($this->config->getEntityInfo());
         $this->container->register('request', 'Los\Core\Http\RequestWrapper')
             ->addArgument($request);
         $this->container->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper')
+            ->addArgument($this->config)
             ->addArgument(new Reference('entity.info'));
-    }
-
-    /**
-     * Set up entity information.
-     *
-     * @return array|mixed
-     */
-    private function serviceEntityInfo()
-    {
-        $entities = array();
-        $entityFinder = new Finder();
-        $entityFinder->files()->name('entity.json')->in(APP_PATH_SRC);
-        foreach ($entityFinder as $file) {
-            $entity = json_decode(file_get_contents($file->getRealPath()), true);
-
-            if ($entity) {
-                $entities += $entity;
-            }
-        }
-
-        return $entities;
     }
 
     /**
@@ -115,20 +99,11 @@ class LosKernel implements HttpKernelInterface
     private function serviceRequest(&$request)
     {
         $routeCollection = new RouteCollection();
+        $routes = $this->config->getRoutes();
 
-        $entityLocations = array();
-        $finder = new Finder();
-        $finder->files()->name('routes.json')->in(APP_PATH_SRC);
-        foreach ($finder as $file) {
-            $entityLocations[] = $file->getRealPath();
-        }
-
-        foreach ($entityLocations as $location) {
-            $routes = json_decode(file_get_contents($location), true);
-            foreach ($routes as $key => $route) {
-                $routeAdd = new Route($route['path'], array('_controller' => $route['_controller'], 'smest' => 'test'));
-                $routeCollection->add($key, $routeAdd);
-            }
+        foreach ($routes as $key => $route) {
+            $routeAdd = new Route($route['path'], array('_controller' => $route['_controller'], 'smest' => 'test'));
+            $routeCollection->add($key, $routeAdd);
         }
 
         $matcher = new UrlMatcher($routeCollection, new RequestContext());

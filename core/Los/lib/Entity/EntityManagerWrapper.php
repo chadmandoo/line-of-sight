@@ -16,21 +16,20 @@ class EntityManagerWrapper
 
     /**
      * EntityManagerWrapper constructor.
+     * @param array      $dbConnect
      * @param EntityInfo $entityInfo
      */
-    public function __construct(EntityInfo $entityInfo = null)
+    public function __construct($config, EntityInfo $entityInfo = null)
     {
         $this->entityInfo = $entityInfo;
-        // @TODO throw an exception if this doesnt work.
-        $db = json_decode(file_get_contents(APP_PATH_CONFIG.'/config.json'), true);
-
+        $dbConnect = $config->getConfig();
         $conn = array(
-            'dbname' => $db['database']['dbname'],
-            'user' => $db['database']['user'],
-            'password' => $db['database']['password'],
-            'host' => $db['database']['host'],
-            'driver' => $db['database']['driver'],
-            'port' => $db['database']['port'],
+            'dbname' => $dbConnect['database']['dbname'],
+            'user' => $dbConnect['database']['user'],
+            'password' => $dbConnect['database']['password'],
+            'host' => $dbConnect['database']['host'],
+            'driver' => $dbConnect['database']['driver'],
+            'port' => $dbConnect['database']['port'],
         );
 
         $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH_SRC), true);

@@ -101,8 +101,8 @@ The above example will create a path with a key of todo_read (uniquely identifyi
 
 *Note that since we use JSON the backslash must be escaped by another backslash.*
 
-### @TODO
+### Feature Extras
 - ~~- Entity Factory / Builder~~
 - ~~Object Normalizer for __call() magic method~~
-- Caching (Routing, Entity Info, Memcache, FileCache)
+- File Caching (Routing, Entity Info, FileCache)
 - Documentation

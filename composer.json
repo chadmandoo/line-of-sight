@@ -21,6 +21,7 @@
         "symfony/http-kernel": "^3.2",
         "symfony/serializer": "^3.2",
         "symfony/property-access": "^3.2",
-        "symfony/dependency-injection": "^3.2"
+        "symfony/dependency-injection": "^3.2",
+        "symfony/config": "^3.2"
     }
 }
