@@ -34,6 +34,8 @@ class EntityManagerWrapper
             'port' => $dbConnect['database']['port'],
         );
 
+        var_dump($conn);
+
         $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH_SRC), true);
         $this->entityManager = EntityManager::create($conn, $config);
     }
