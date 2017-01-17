@@ -14,3 +14,6 @@ web*
 # Temporarily ignoring src for testing except TodoBundle
 src*
 !/src/TodoBundle*
+
+# Config
+app/config/config.json

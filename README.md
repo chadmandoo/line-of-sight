@@ -106,4 +106,5 @@ The above example will create a path with a key of todo_read (uniquely identifyi
 - ~~Object Normalizer for __call() magic method~~
 - ~~File Caching (Routing, Entity Info, FileCache)~~
 - Console Commands
+- Easy CORS Support
 - Documentation
