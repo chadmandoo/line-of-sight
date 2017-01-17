@@ -4,6 +4,11 @@
     "path": "/todo",
     "_controller": "\\TodoBundle\\Controller\\TodoController::all"
   },
+  "todo_all_memcache": {
+    "title": "Todo All",
+    "path": "/todo/memcached",
+    "_controller": "\\TodoBundle\\Controller\\TodoController::allMemcached"
+  },
   "todo_create": {
     "title": "Todo Create",
     "path": "/todo/create",

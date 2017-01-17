@@ -2,6 +2,7 @@
 
 namespace TodoBundle\Controller;
 
+use Doctrine\Common\Cache\MemcacheCache;
 use Los\Core\Controller\Controller;
 use Los\Core\Entity\EntityRepository;
 use TodoBundle\Entity\Todo;
@@ -25,6 +26,41 @@ class TodoController extends Controller
         foreach ($entities as $entity) {
             $output[] = $entity->getAllProperties();
         }
+
+        return $this->jsonOutput($output);
+    }
+
+    /**
+     * Returns all ToDo entities cached.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function allMemcached()
+    {
+        $memcache = new \Memcache();
+        $memcache->connect('127.0.0.1', 11211);
+
+        $cacheDriver = new MemcacheCache();
+        $cacheDriver->setMemcache($memcache);
+
+        if ($cacheDriver->contains('todo')) {
+            $entities = $cacheDriver->fetch('my_array');
+
+            foreach ($entities as $entity) {
+                $output[] = $entity->getAllProperties();
+            }
+
+        } else {
+            $entities = $this->getEntityRepo('todo')
+                ->findAll();
+
+            foreach ($entities as $entity) {
+                $output[] = $entity->getAllProperties();
+            }
+
+            $cacheDriver->save('todo', $entities);
+        }
+
 
         return $this->jsonOutput($output);
     }
