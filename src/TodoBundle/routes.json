@@ -5,7 +5,7 @@
     "_controller": "\\TodoBundle\\Controller\\TodoController::all"
   },
   "todo_all_memcache": {
-    "title": "Todo All",
+    "title": "Todo All Memcached",
     "path": "/todo/memcached",
     "_controller": "\\TodoBundle\\Controller\\TodoController::allMemcached"
   },
