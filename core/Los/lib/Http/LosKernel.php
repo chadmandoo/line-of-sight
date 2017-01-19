@@ -82,8 +82,10 @@ class LosKernel implements HttpKernelInterface
             ->addArgument($this->config->getEntityInfo());
         $this->container->register('request', 'Los\Core\Http\RequestWrapper')
             ->addArgument($request);
+        $this->container->register('config', 'Los\Core\Config\LosConfig')
+            ->addArgument($this->config);
         $this->container->register('entity.manager', 'Los\Core\Entity\EntityManagerWrapper')
-            ->addArgument($this->config)
+            ->addArgument(new Reference('config'))
             ->addArgument(new Reference('entity.info'));
     }
 

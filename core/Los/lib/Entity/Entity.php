@@ -31,7 +31,7 @@ class Entity
      *
      * @param string $name
      * @param mixed  $arguments
-     * @return void|mixed
+     * @return mixed
      */
     public function __call($name, $arguments)
     {

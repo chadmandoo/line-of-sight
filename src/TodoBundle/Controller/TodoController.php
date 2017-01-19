@@ -44,12 +44,7 @@ class TodoController extends Controller
         $cacheDriver->setMemcache($memcache);
 
         if ($cacheDriver->contains('todo')) {
-            $entities = $cacheDriver->fetch('todo');
-
-            foreach ($entities as $entity) {
-                $output[] = $entity->getAllProperties();
-            }
-
+            $output = $cacheDriver->fetch('todo');
         } else {
             $entities = $this->getEntityRepo('todo')
                 ->findAll();
@@ -58,7 +53,7 @@ class TodoController extends Controller
                 $output[] = $entity->getAllProperties();
             }
 
-            $cacheDriver->save('todo', $entities);
+            $cacheDriver->save('todo', $output);
         }
 
 
@@ -157,8 +152,8 @@ class TodoController extends Controller
     {
         for ($i = 0; $i < 10000; $i++) {
             $todoEntity = new Todo();
-            $todoEntity->setTitle('Todo Number ' . $i);
-            $todoEntity->setDescription('Here is a description for Todo '. $i);
+            $todoEntity->setTitle('Todo Number '.$i);
+            $todoEntity->setDescription('Here is a description for Todo '.$i);
             EntityRepository::saveEntity($this->getEntityManager(), $todoEntity);
         }
 

@@ -114,6 +114,9 @@ class LosConfig
         $this->entityInfo = $entityInfo;
     }
 
+    /**
+     * Set up routes and entity info.
+     */
     private function setup()
     {
         $this->routes = $this->generateRoutes();
@@ -140,6 +143,11 @@ class LosConfig
         return $routesCollection;
     }
 
+    /**
+     * Generate the entity information.
+     *
+     * @return array|mixed
+     */
     private function generateEntityInfo()
     {
         $entities = array();

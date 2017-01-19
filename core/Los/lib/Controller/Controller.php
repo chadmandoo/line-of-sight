@@ -48,6 +48,16 @@ class Controller implements ContainerAwareInterface
         return new Response($output);
     }
 
+    protected function isRouteCachedEnabled()
+    {
+
+    }
+
+    protected function getCache()
+    {
+
+    }
+
     /**
      * Get entity manager.
      *
@@ -77,6 +87,16 @@ class Controller implements ContainerAwareInterface
     protected function getEntityInfo()
     {
         return $this->container->get('entity.info');
+    }
+
+    /**
+     * Get configuration
+     *
+     * @return object
+     */
+    protected function getConfig()
+    {
+        return $this->container->get('config');
     }
 
     /**
